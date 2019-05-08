@@ -30,6 +30,21 @@ namespace Ardalis.GuardClauses
 		}
 
 		/// <summary>
+		/// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty string.
+		/// </summary>
+		/// <param name="guardClause"></param>
+		/// <param name="input"></param>
+		/// <param name="parameterName"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public static void Empty(this IGuardClause guardClause, string input, string parameterName)
+		{
+			if (input == String.Empty)
+			{
+				throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
+			}
+		}
+
+		/// <summary>
 		/// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
 		/// </summary>
 		/// <param name="guardClause"></param>
@@ -246,7 +261,6 @@ namespace Ardalis.GuardClauses
 		{
 			if (!Enum.IsDefined(typeof(T), input))
 			{
-				string enumName = typeof(T).ToString();
 				throw new ArgumentOutOfRangeException($"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.", parameterName);
 			}
 		}
